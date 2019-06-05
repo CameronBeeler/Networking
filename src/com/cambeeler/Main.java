@@ -1,16 +1,44 @@
 package com.cambeeler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class Main {
+public class Main
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         try
         {
-//            URI uri = new URI("http://username:password@myserver.com:5000/catalogue/phones?os=android#samsung");
+
+            URL url = new URL("http://example.org");
+//            URI uri = url.toURI();
+
+            BufferedReader inputStream = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line = "";
+            while(line != null)
+            {
+                line = inputStream.readLine();
+                System.out.println(line);
+            }
+        }
+        catch (MalformedURLException u)
+        {
+            System.out.println("URL is malformed: " + u.getMessage());
+        }
+        catch (IOException e)
+        {
+            System.out.println("IOException: " + e.getMessage());
+        }
+    }
+}
+
+/*            URI uri = new URI("http://username:password@myserver.com:5000/catalogue/phones?os=android#samsung");
             URI baseURI = new URI("http://username:password@myserver.com:5000"); // can be managed in 1 place and
             // all relative uri's can be handled separately
             URI uri1 = new URI("/catalogue/phones?os=android#samsung");
@@ -29,7 +57,7 @@ public class Main {
             URI relativizedURI = baseURI.relativize(url3.toURI());
             System.out.println(relativizedURI);
 
-/*
+
             System.out.println("scheme: " + uri.getScheme());
             System.out.println("scheme-specific-part: " + uri.getSchemeSpecificPart());
             System.out.println("authority: " + uri.getAuthority());
@@ -40,14 +68,7 @@ public class Main {
             System.out.println("query: " + uri.getQuery());
             System.out.println("fragment: " + uri.getFragment());
  */
-        }
-        catch (URISyntaxException u)
-        {
-            System.out.println("URI bad syntax exception: " + u.getMessage());
-        }
-        catch (MalformedURLException u)
-        {
-            System.out.println("URL is malformed: " + u.getMessage());
-        }
-    }
-}
+//        catch (URISyntaxException u)
+//        {
+//            System.out.println("URI bad syntax exception: " + u.getMessage());
+//        }
