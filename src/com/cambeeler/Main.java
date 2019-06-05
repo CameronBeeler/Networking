@@ -26,6 +26,9 @@ public class Main {
             System.out.println("URL: " + url2);
             System.out.println("URL: " + url3);
 
+            URI relativizedURI = baseURI.relativize(url3.toURI());
+            System.out.println(relativizedURI);
+
 /*
             System.out.println("scheme: " + uri.getScheme());
             System.out.println("scheme-specific-part: " + uri.getSchemeSpecificPart());
