@@ -3,10 +3,7 @@ package com.cambeeler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.*;
 
 public class Main
 {
@@ -16,16 +13,20 @@ public class Main
         try
         {
 
-            URL url = new URL("http://example.org");
-//            URI uri = url.toURI();
+            URL           url           = new URL("http://example.org");
+            URLConnection urlConnection = url.openConnection();
+            urlConnection.setDoOutput(true); // do all connection configs BEFORE you connect()
+            urlConnection.connect();  // By default you can only read from a connection
 
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader inputStream = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
             String line = "";
             while(line != null)
             {
                 line = inputStream.readLine();
                 System.out.println(line);
             }
+
         }
         catch (MalformedURLException u)
         {
