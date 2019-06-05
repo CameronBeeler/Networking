@@ -11,9 +11,12 @@ public class Main {
         try
         {
 //            URI uri = new URI("http://username:password@myserver.com:5000/catalogue/phones?os=android#samsung");
+            URI baseURI = new URI("http://username:password@myserver.com:5000"); // can be managed in 1 place and
+            // all relative uri's can be handled separately
             URI uri = new URI("/catalogue/phones?os=android#samsung");
-//            URL url = uri.toURL();
-//            System.out.println("URL: " + url);
+            URI resolvedURI = baseURI.resolve(uri);
+            URL url = resolvedURI.toURL();  // then all combined into a single complete URI to be converted into URL's as needed.
+            System.out.println("URL: " + url);
 
             System.out.println("scheme: " + uri.getScheme());
             System.out.println("scheme-specific-part: " + uri.getSchemeSpecificPart());
@@ -30,9 +33,9 @@ public class Main {
         {
             System.out.println("URI bad syntax exception: " + u.getMessage());
         }
-//        catch (MalformedURLException u)
-//        {
-//            System.out.println("URL is malformed: " + u.getMessage());
-//        }
+        catch (MalformedURLException u)
+        {
+            System.out.println("URL is malformed: " + u.getMessage());
+        }
     }
 }
