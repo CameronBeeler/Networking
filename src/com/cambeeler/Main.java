@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main
 {
@@ -20,12 +24,24 @@ public class Main
 
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
-            String line = "";
-            while(line != null)
+            Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
+            for(Map.Entry<String, List<String>> entry : headerFields.entrySet())
             {
-                line = inputStream.readLine();
-                System.out.println(line);
+                String key = entry.getKey();
+                List<String> values = entry.getValue();
+
+                System.out.println("---key " + key);
+                for (String value : values)
+                {
+                    System.out.println(value);
+                }
             }
+//            String line = "";
+//            while(line != null)
+//            {
+//                line = inputStream.readLine();
+//                System.out.println(line);
+//            }
 
         }
         catch (MalformedURLException u)
