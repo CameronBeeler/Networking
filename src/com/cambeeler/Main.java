@@ -18,7 +18,29 @@ public class Main
         {
 
             URL           url           = new URL("http://example.org");
-            URLConnection urlConnection = url.openConnection();
+            HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+            httpConnection.setRequestMethod("GET");
+            /*  GET, POST, HEAD, OPTIONS, PUT, DELETE and TRACE */
+            httpConnection.setRequestProperty("User-Agent", "Chrome");
+            httpConnection.setReadTimeout(30000);
+            int ResponseCode = httpConnection.getResponseCode();
+            System.out.println("Response Code: " + ResponseCode);
+            if (ResponseCode != 200)
+            {
+                System.out.println("Error reading web page");
+                return;
+            }
+
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
+
+            String line ;
+            while((line = inputReader.readLine()) != null)
+            {
+                System.out.println(line);
+            }
+            inputReader.close();
+
+/*            URLConnection urlConnection = url.openConnection();
             urlConnection.setDoOutput(true); // do all connection configs BEFORE you connect()
             urlConnection.connect();  // By default you can only read from a connection
 
@@ -36,13 +58,13 @@ public class Main
                     System.out.println(value);
                 }
             }
-//            String line = "";
-//            while(line != null)
-//            {
-//                line = inputStream.readLine();
-//                System.out.println(line);
-//            }
-
+            String line = "";
+            while(line != null)
+            {
+                line = inputStream.readLine();
+                System.out.println(line);
+            }
+*/
         }
         catch (MalformedURLException u)
         {
